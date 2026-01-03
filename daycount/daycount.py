@@ -1,6 +1,6 @@
 from datetime import date
 
-def year_fraction_computation(start_date, end_date, convention):
+def year_fraction_computation(start_date: date, end_date: date, convention: str):
     #check which convention is being used
     if convention == "ACT/360":
             #ACT/360
