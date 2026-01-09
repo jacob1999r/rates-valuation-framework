@@ -21,5 +21,5 @@ def year_fraction_computation(start_date: date, end_date: date, convention: str)
             timedelta = end_date - start_date
             year_fraction = timedelta.days/360
     else:
-           year_fraction = "This day count convention is either not recognised or has not yet been implemented."
+           raise ValueError("This day count convention is either not recognised or has not yet been implemented.")
     return year_fraction
