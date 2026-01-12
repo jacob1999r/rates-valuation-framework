@@ -1,6 +1,6 @@
 import math
 from datetime import date
-from daycount.daycount import year_fraction_computation
+from ..daycount.daycount import year_fraction_computation
 from operator import itemgetter
 
 def _df_from_zero_rate(zero_rate: float, year_fraction: float):
@@ -57,10 +57,13 @@ class DiscountCurve:
         #sort the interpolation dates into chronological order whilst maintaining the corresponding discount rate
         date_df_pairs=sorted(zip(interpolation_dates, interpolation_dfs), key=itemgetter(0))
         #unzip the dates and the discount factors, now ordered chronologically
-        self.interpolation_dates, self.interpolation_dfs = zip(*date_df_pairs)
+        dates, dfs = zip(*date_df_pairs)
+        self.interpolation_dates = list(dates)
+        self.interpolation_dfs = list(dfs)
+
 
         #compute year fractions from the list of dates to use for the interpolation
-        self.interpolation_year_fractions = [year_fraction_computation(self.valuation_date, date, self.convention) for date in self.interpolation_dates] 
+        self.interpolation_year_fractions = [year_fraction_computation(self.valuation_date, d, self.convention) for d in self.interpolation_dates] 
 
         #validation check that the year fraction list is strictly increasing
         for i in range(len(self.interpolation_year_fractions)-1):
@@ -87,10 +90,11 @@ class DiscountCurve:
         for i in range(len(self.interpolation_year_fractions)-1):
             valuation_date_t_0_year_fraction = self.interpolation_year_fractions[i]
             valuation_date_t_1_year_fraction = self.interpolation_year_fractions[i+1]
-
+            
+            #TODO: extrapolation beyond t_1
             if valuation_date_t_0_year_fraction < valuation_date_t_year_fraction < valuation_date_t_1_year_fraction:
                 return interpolate_log_df(valuation_date_t_0_year_fraction,self.interpolation_dfs[i], valuation_date_t_year_fraction, valuation_date_t_1_year_fraction, self.interpolation_dfs[i+1])
-        raise ValueError("Target date lies outside range of known interpolation boundaries!")
+        raise ValueError("Target date lies outside range of known values!")
         
 def pv(cashflows: list[tuple[date, float]], curve: DiscountCurve):
     #compute the present value of some cashflows at certain dates, with discount rates at those dates given by interpolation

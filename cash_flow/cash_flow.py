@@ -1,5 +1,5 @@
 from datetime import date
-from daycount.daycount import year_fraction_computation
+from ..daycount.daycount import year_fraction_computation
 
 def build_fixed_leg_cashflows(schedule: list[tuple[date, date, date]], notional: float, fixed_rate: float, convention: str):
     #function for building cash flows of a fixed rate coupon as a list

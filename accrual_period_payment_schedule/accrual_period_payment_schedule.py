@@ -2,7 +2,7 @@ from datetime import date
 import math
 from dateutil.relativedelta import relativedelta
 
-def generate_schedule(start_date: date, end_date: date, frequency: float):
+def generate_schedule(start_date: date, end_date: date, frequency: int):
     #takes frequency as the number of months between payments to determine accrual periods and payment dates, outputting a list of 3-tuples (accrual start, accrual end and payment date)
     schedule = []
     #run a while loop until period end date surpasses or equals the end date, then break and consider stub period
