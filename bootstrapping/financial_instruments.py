@@ -24,11 +24,13 @@ class DepositQuote:
         return year_fraction_computation(self.start_date, self.end_date, self.convention)
 
     def df_implied(self):
-        #continuous compounding
-        return math.exp(-self.year_fraction()*self.rate)
+        #deposit quotes are quoted money-market style, not as continuous compounding
+        #as we are not computing a new discount rate here but rather deriving it from what is known, it is suitable to use simple money-market style
+        return 1/(1+self.year_fraction()*self.rate)
     
-class SwapQuote:
-    #class for a given fixed-for-floating swap quote at a given maturity, frequencies are given as number of months (can be decimal)
+class FixedForFloatingSwapQuote:
+    #class for a given fixed-for-floating swap quote at a given maturity, frequencies are given as number of months
+    #assume swap is at par, so we can use the par swap equation
     def __init__(self, effective_date: date, maturity_date: date, fixed_rate: float, fixed_frequency_months: int, fixed_convention: str, float_frequency_months: int, float_convention: str, notional: float = 1.0):
         self.effective_date = effective_date
         self.maturity_date = maturity_date

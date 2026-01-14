@@ -2,7 +2,7 @@ from datetime import date
 
 def year_fraction_computation(start_date: date, end_date: date, convention: str):
     #validation checks
-    if end_date > start_date:
+    if end_date < start_date:
            raise ValueError("End date must be after start date!")
 
     #check which convention is being used

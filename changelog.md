@@ -1,4 +1,9 @@
-12/01/2026 v0.4 - Added classes for deposit quotes and interest rate swap quotes.
+13/01/2026 v0.6 - Added bootstrapping.py, which returns a DiscountCurve bootstrapped from deposit and swap quotes.
+                  Added method to DiscountCurve object for adding new interpolation dates.
+                  Added extrapolation functionality to interpolate_log_df.
+                  Various bug fixes and consistency changes.
+
+12/01/2026 v0.5 - Added classes for deposit quotes and interest rate swap quotes.
                   Changed imports to relative imports.
 				  Corrected the 30E/360 function to use the formula.
 				  Various additional validation checks and bug fixes.       
