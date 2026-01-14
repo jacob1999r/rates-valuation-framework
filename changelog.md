@@ -1,4 +1,6 @@
-13/01/2026 v0.6 - Added bootstrapping.py, which returns a DiscountCurve bootstrapped from deposit and swap quotes.
+14/01/2026 v0.7 - Added unit tests for daycount.py.
+
+14/01/2026 v0.6 - Added bootstrapping.py, which returns a DiscountCurve bootstrapped from deposit and swap quotes.
                   Added method to DiscountCurve object for adding new interpolation dates.
                   Added extrapolation functionality to interpolate_log_df.
                   Various bug fixes and consistency changes.
