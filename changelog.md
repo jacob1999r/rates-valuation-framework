@@ -1,3 +1,5 @@
+14/01/2026 v0.8 - Added unit tests for accrual_period_payment_schedule.py.
+
 14/01/2026 v0.7 - Added unit tests for daycount.py.
 
 14/01/2026 v0.6 - Added bootstrapping.py, which returns a DiscountCurve bootstrapped from deposit and swap quotes.
