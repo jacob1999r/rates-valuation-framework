@@ -51,7 +51,7 @@ class TestYearFractionComputation:
         assert year_fraction_computation(date(2026,1,1), date(2026,1,31), "30E/360") == pytest.approx(29/360)
 
     def test_30E_360_start_day_31(self):
-        #31/01/2026 -> 28/01/2026 is still 28 days when adjusted for 30E/360
+        #31/01/2026 -> 28/02/2026 is still 28 days when adjusted for 30E/360
         #using the formula gives (360(2026-2026)+30(2-1)+(28-30))/360=28/360
         assert year_fraction_computation(date(2026,1,31), date(2026,2,28), "30E/360") == pytest.approx(28/360)
 

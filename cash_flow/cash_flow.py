@@ -1,9 +1,18 @@
 from datetime import date
-from ..daycount.daycount import year_fraction_computation
+from daycount.daycount import year_fraction_computation
 
 def build_fixed_leg_cashflows(schedule: list[tuple[date, date, date]], notional: float, fixed_rate: float, convention: str):
     #function for building cash flows of a fixed rate coupon as a list
     cashflows= []
+
+    #validation checks
+    if not schedule:
+        raise ValueError("Payment schedule is empty!")
+    if notional < 0:
+        raise ValueError("Notional payment must not be less than 0.")
+    if fixed_rate < 0:
+        raise ValueError("Fixed rate must not be less than 0.")
+    
     for payment in schedule:
         #add a 2-tuple to the cashflows list, which has both the payment date and the payment amount
         cashflows.append((payment[2], notional*fixed_rate*year_fraction_computation(payment[0], payment[1], convention)))
@@ -16,6 +25,10 @@ def build_bond_cashflows(schedule: list[tuple[date, date, date]], notional: floa
     #validation checks
     if not schedule:
         raise ValueError("Payment schedule is empty!")
+    if notional < 0:
+        raise ValueError("Notional payment must not be less than 0.")
+    if fixed_rate < 0:
+        raise ValueError("Fixed rate must not be less than 0.")
 
     for payment in schedule:
         #add a 2-tuple to the cashflows list, which has both the payment date and the payment amount

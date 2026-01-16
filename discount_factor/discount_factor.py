@@ -1,6 +1,6 @@
 import math
 from datetime import date
-from ..daycount.daycount import year_fraction_computation
+from daycount.daycount import year_fraction_computation
 from operator import itemgetter
 
 def _df_from_zero_rate(zero_rate: float, year_fraction: float):

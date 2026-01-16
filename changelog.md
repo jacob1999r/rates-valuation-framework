@@ -1,3 +1,6 @@
+16/01/2026 v0.9 - Added unit tests for cash_flow.py.
+                  Bug fixes.
+
 14/01/2026 v0.8 - Added unit tests for accrual_period_payment_schedule.py.
 
 14/01/2026 v0.7 - Added unit tests for daycount.py.
