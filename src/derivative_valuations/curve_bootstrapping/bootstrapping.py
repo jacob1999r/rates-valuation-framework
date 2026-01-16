@@ -2,8 +2,8 @@ import math
 from datetime import date
 from operator import methodcaller, attrgetter
 
-from financial_instruments import DepositQuote, FixedForFloatingSwapQuote
-from discount_factor.discount_factor import DiscountCurve
+from derivative_valuations.curve_bootstrapping.financial_instruments import DepositQuote, FixedForFloatingSwapQuote
+from derivative_valuations.df_curve.discount_factor import DiscountCurve
 
 def bootstrap_discount_curve(valuation_date: date, deposit_quotes: list[DepositQuote], swap_quotes: list[FixedForFloatingSwapQuote], convention: str,):
     #function for bootstrapping a curve given a list of deposit quotes and a list of swap quotes

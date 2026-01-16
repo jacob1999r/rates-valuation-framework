@@ -1,6 +1,6 @@
 import math
 from datetime import date
-from daycount.daycount import year_fraction_computation
+from derivative_valuations.daycount_conventions.daycount import year_fraction_computation
 from operator import itemgetter
 
 def _df_from_zero_rate(zero_rate: float, year_fraction: float):
@@ -129,10 +129,12 @@ class DiscountCurve:
             valuation_date_t_0_year_fraction = self.interpolation_year_fractions[i]
             valuation_date_t_1_year_fraction = self.interpolation_year_fractions[i+1]
             
-            #TODO: extrapolation beyond t_1
             if valuation_date_t_0_year_fraction < valuation_date_t_year_fraction < valuation_date_t_1_year_fraction:
                 return interpolate_log_df(valuation_date_t_0_year_fraction,self.interpolation_dfs[i], valuation_date_t_year_fraction, valuation_date_t_1_year_fraction, self.interpolation_dfs[i+1])
-        raise ValueError("Target date lies outside range of known values!")
+            elif valuation_date_t_0_year_fraction > valuation_date_t_year_fraction:
+                raise ValueError("Target date cannot be before the first known date!")
+            elif valuation_date_t_year_fraction > self.interpolation_year_fractions[-1]:
+                return interpolate_log_df(self.interpolation_year_fractions[-2],self.interpolation_dfs[-2], valuation_date_t_year_fraction, self.interpolation_year_fractions[-1], self.interpolation_dfs[-1])
     
     def _sort(self):
         #helper to sort the interpolation dates and discount factors

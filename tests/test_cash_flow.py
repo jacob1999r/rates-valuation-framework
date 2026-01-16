@@ -1,6 +1,6 @@
 from datetime import date
 import pytest
-from cash_flow.cash_flow import build_fixed_leg_cashflows, build_bond_cashflows
+from derivative_valuations.cashflows.cash_flow import build_fixed_leg_cashflows, build_bond_cashflows
 
 class TestFixedLegCashflows:
     def test_empty_schedule(self):

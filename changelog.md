@@ -1,3 +1,7 @@
+16/01/2026 v1.0 - Implemented functionality for pricing bonds at dirty price and clean price.
+                  Overhauled file structure and folder names.
+                  Bug fixes.
+
 16/01/2026 v0.9 - Added unit tests for cash_flow.py.
                   Bug fixes.
 

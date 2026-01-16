@@ -1,10 +1,10 @@
 import math
 from datetime import date
 
-from discount_factor.discount_factor import DiscountCurve
-from daycount.daycount import year_fraction_computation
-from accrual_period_payment_schedule.accrual_period_payment_schedule import generate_schedule
-from cash_flow.cash_flow import build_fixed_leg_cashflows
+from derivative_valuations.df_curve.discount_factor import DiscountCurve
+from derivative_valuations.daycount_conventions.daycount import year_fraction_computation
+from derivative_valuations.payment_schedule.accrual_period_payment_schedule import generate_schedule
+from derivative_valuations.cashflows.cash_flow import build_fixed_leg_cashflows
 
 class DepositQuote:
     #class for a money market deposit instrument quote

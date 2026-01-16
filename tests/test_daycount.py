@@ -1,6 +1,6 @@
 from datetime import date
 import pytest
-from daycount.daycount import year_fraction_computation
+from derivative_valuations.daycount_conventions.daycount import year_fraction_computation
 
 class TestYearFractionComputation:
     def test_raises_if_end_before_start(self):

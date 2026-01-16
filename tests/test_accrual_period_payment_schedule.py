@@ -1,6 +1,6 @@
 from datetime import date
 import pytest
-from accrual_period_payment_schedule.accrual_period_payment_schedule import generate_schedule
+from derivative_valuations.payment_schedule.accrual_period_payment_schedule import generate_schedule
 
 class TestGenerateSchedule:
     def test_end_date_before_start_date(self):
