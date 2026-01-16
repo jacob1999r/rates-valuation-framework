@@ -2,6 +2,7 @@ import math
 from datetime import date
 from derivative_valuations.daycount_conventions.daycount import year_fraction_computation
 from operator import itemgetter
+import copy
 
 def _df_from_zero_rate(zero_rate: float, year_fraction: float):
     #function that computes the discount factor from a zero rate, using continuous compounding (as is used throughout)
@@ -135,6 +136,26 @@ class DiscountCurve:
                 raise ValueError("Target date cannot be before the first known date!")
             elif valuation_date_t_year_fraction > self.interpolation_year_fractions[-1]:
                 return interpolate_log_df(self.interpolation_year_fractions[-2],self.interpolation_dfs[-2], valuation_date_t_year_fraction, self.interpolation_year_fractions[-1], self.interpolation_dfs[-1])
+            
+    def bump_curve(self, bp: float):
+        #bump the curve by a given amount of basis points (1bp is 0.01% or 0.0001)
+        #first copy the curve
+        bumped_curve = copy.deepcopy(self)
+
+        #for loop through discount factors in the copied curve, calculating the zero rate at each, bumping and then recomputing
+        for i in range(len(bumped_curve.interpolation_dfs)-1):
+            #skip if valuation date
+            if bumped_curve.interpolation_year_fractions == 0:
+                continue
+
+            zero_rate=_zero_rate_from_df(bumped_curve.interpolation_dfs[i],bumped_curve.interpolation_year_fractions[i])
+            #bump the zero rate using _zero_rates_from_df helper
+            bumped_zero_rate = zero_rate + (bp/10000)
+            #recompute using _df_from_zero_rate helper
+            bumped_curve.interpolation_dfs[i] =_df_from_zero_rate(bumped_zero_rate, bumped_curve.interpolation_year_fractions[i])
+
+        return bumped_curve
+
     
     def _sort(self):
         #helper to sort the interpolation dates and discount factors
@@ -144,7 +165,7 @@ class DiscountCurve:
         dates, dfs = zip(*date_df_pairs)
         self.interpolation_dates = list(dates)
         self.interpolation_dfs = list(dfs)
-    
+
         
 def pv(cashflows: list[tuple[date, float]], curve: DiscountCurve):
     #compute the present value of some cashflows at certain dates, with discount rates at those dates given by interpolation

@@ -13,3 +13,15 @@ def pv(cashflows: list[tuple[date, float]], curve: DiscountCurve):
     for cashflow in cashflows:
         pv = pv + curve.df(cashflow[0])*cashflow[1]
     return pv
+
+def DV01(cashflows: list[tuple[date, float]], curve: DiscountCurve, bp: float, absolute: bool = False):
+    #compute DV01 given a set of cashflows, a curve and a basis point bump
+    #optionally compute as absolute
+    #first bump curve
+    bumped_curve = curve.bump_curve(bp)
+    #bumped pv less base pv
+    DV01 = pv(cashflows, bumped_curve) - pv(cashflows, curve)
+    if absolute == True:
+        return abs(DV01)
+    else:
+        return DV01

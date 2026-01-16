@@ -1,3 +1,6 @@
+16/01/2026 v1.1 - Implemented functionality for computing DV01 given present values.
+                  Added method to DiscountCurve to produce a bumped curve by a given number of basis points.
+
 16/01/2026 v1.0 - Implemented functionality for pricing bonds at dirty price and clean price.
                   Overhauled file structure and folder names.
                   Bug fixes.
