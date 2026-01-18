@@ -142,10 +142,14 @@ class DiscountCurve:
         #first copy the curve
         bumped_curve = copy.deepcopy(self)
 
+        #validation check
+        if len(bumped_curve.interpolation_dfs) != len(bumped_curve.interpolation_year_fractions):
+            raise ValueError("The list of discount factors must coincide with the list of year fractions.")
+
         #for loop through discount factors in the copied curve, calculating the zero rate at each, bumping and then recomputing
-        for i in range(len(bumped_curve.interpolation_dfs)-1):
+        for i in range(len(bumped_curve.interpolation_dfs)):
             #skip if valuation date
-            if bumped_curve.interpolation_year_fractions == 0:
+            if bumped_curve.interpolation_year_fractions[i] == 0:
                 continue
 
             zero_rate=_zero_rate_from_df(bumped_curve.interpolation_dfs[i],bumped_curve.interpolation_year_fractions[i])
@@ -166,11 +170,12 @@ class DiscountCurve:
         self.interpolation_dates = list(dates)
         self.interpolation_dfs = list(dfs)
 
-        
+#unused present value function
+"""        
 def pv(cashflows: list[tuple[date, float]], curve: DiscountCurve):
     #compute the present value of some cashflows at certain dates, with discount rates at those dates given by interpolation
     pv = 0
     for i in range(len(cashflows)):
         pv = pv + curve.df(cashflows[i][0])*cashflows[i][1]
     return pv
-
+"""
