@@ -1,6 +1,6 @@
-\# Derivative Valuations Tool
+# Derivative Valuations Tool
 
-\## Jacob Russell
+## Jacob Russell
 
 A small fixed-income valuation and risk analytics library, with the following features:
 - bootstrap discount curves from deposit quotes and par swap quotes, using the '`DiscountCurve` object;
