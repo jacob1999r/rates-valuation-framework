@@ -1,3 +1,5 @@
+26/01/2026 v1.4 - Added functionality pricing FRAs (forward rate agreements).
+
 26/01/2026 v1.3 - Added functionality for computing convexity.
 
 18/01/2026 v1.2.1 - Rendering fix on readme.md.
